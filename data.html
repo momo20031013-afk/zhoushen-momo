@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>周深 | 歌單分析</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <h1>鄭品均 的偶像周深的非官方網站</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">首頁</a></li>
+                <li><a href="profile.html">個人檔案</a></li>
+                <li><a href="media.html">音樂與影視</a></li>
+                <li><a href="data.html" class="active">歌單分析</a></li> 
+                <li><a href="shop.html">周邊商品</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="chart-area">
+            <h2>歌曲熱度分析 (長條圖)</h2>
+            <div class="chart-container">
+                <canvas id="songBarChart"></canvas>
+            </div>
+            
+            <h2 style="margin-top: 50px;">粉絲最愛專輯佔比 (圓餅圖)</h2>
+            <div class="chart-container-small">
+                <canvas id="albumPieChart"></canvas>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // --- 1. 長條圖數據與配置 (歌曲熱度) ---
+        const barCtx = document.getElementById('songBarChart').getContext('2d');
+        const songData = {
+            labels: ['大魚', '達拉崩吧', '望', '可它愛著這個世界', '鈴芽之旅'],
+            datasets: [{
+                label: '歌曲人氣指數 (虛擬數據)',
+                data: [45, 30, 22, 18, 15], // 數據值
+                backgroundColor: [
+                    'rgba(54, 162, 235, 0.8)', // 藍色
+                    'rgba(255, 99, 132, 0.8)', // 紅色
+                    'rgba(255, 206, 86, 0.8)', // 黃色
+                    'rgba(75, 192, 192, 0.8)', // 綠色
+                    'rgba(153, 102, 255, 0.8)' // 紫色
+                ],
+                borderColor: 'rgba(0, 0, 0, 0.3)',
+                borderWidth: 1
+            }]
+        };
+
+        new Chart(barCtx, {
+            type: 'bar', // 設置圖表類型為長條圖
+            data: songData,
+            options: {
+                responsive: true, // 響應式設置
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // --- 2. 圓餅圖數據與配置 (專輯佔比) ---
+        const pieCtx = document.getElementById('albumPieChart').getContext('2d');
+        const albumData = {
+            labels: ['深聲不息', '深的深', '新專輯待定', '單曲精選'],
+            datasets: [{
+                data: [35, 25, 20, 20], // 佔比數據 (加起來為 100)
+                backgroundColor: [
+                    '#3c004c', // 深紫 (網站主色)
+                    '#ff4500', // 亮橘 (網站輔色)
+                    '#aaa',
+                    '#008080'
+                ]
+            }]
+        };
+
+        new Chart(pieCtx, {
+            type: 'pie', // 設置圖表類型為圓餅圖
+            data: albumData,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                }
+            }
+        });
+    </script>
+
+    <footer>
+        <p>&copy; 2025 周深粉絲網站 | 版權所有</p>
+    </footer>
+</body>
+</html>
